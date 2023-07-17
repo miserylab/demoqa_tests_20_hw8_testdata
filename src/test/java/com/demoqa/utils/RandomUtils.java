@@ -3,8 +3,7 @@ package com.demoqa.utils;
 import com.github.javafaker.Faker;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 public class RandomUtils {
     static Faker faker = new Faker();
@@ -16,17 +15,25 @@ public class RandomUtils {
         System.out.println("rYear = " + getRandomYear());
     }
 
-    public static int getRandomInt(int min, int max) {
-        return faker.random().nextInt(min, max + 1);
+    public static String getRandomFirstName() {
+        return faker.name().firstName();
     }
 
-    public static String getRandomPhone() {
-        return String.format("%s%s%s%s", getRandomInt(111,  999),getRandomInt(111,  999),getRandomInt(11,  99),getRandomInt(11,  99));
+    public static String getRandomLastName() {
+        return faker.name().lastName();
+    }
+
+    public static String getRandomUserEmail() {
+        return faker.internet().emailAddress();
     }
 
     public static String getRandomGender() {
         String[] genders = {"Male", "Female", "Other"};
         return faker.options().option(genders);
+    }
+
+    public static String getRandomPhone() {
+        return faker.phoneNumber().subscriberNumber(10);
     }
 
     private static Date GET_RANDOM_BIRTHDAY = faker.date().birthday(16, 65);
@@ -36,7 +43,6 @@ public class RandomUtils {
         int dayNumber = Integer.parseInt(dateFormat.format(GET_RANDOM_BIRTHDAY));
         return String.valueOf(dayNumber);
     }
-
 
     public static String getRandomMonth() {
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -49,14 +55,24 @@ public class RandomUtils {
         return String.valueOf(GET_RANDOM_BIRTHDAY.getYear() + 1900);
     }
 
+    static List<String> subjects = new ArrayList<>(Arrays.asList("Chemistry", "Physics", "Maths", "Commerce", "English"));
+
     public static String getRandomSubject() {
-        String[] subjects = {"Chemistry", "Physics", "Maths", "Commerce", "English"};
-        return faker.options().option(subjects);
+        String subject = faker.options().option(subjects.toArray(new String[0]));
+        subjects.remove(subject);
+        return subject;
     }
 
+    static List<String> hobbies = new ArrayList<>(Arrays.asList("Sports", "Reading", "Music"));
+
     public static String getRandomHobby() {
-        String[] hobbies = {"Sports", "Reading", "Music"};
-        return faker.options().option(hobbies);
+        String hobby = faker.options().option(hobbies.toArray(new String[0]));
+        hobbies.remove(hobby);
+        return hobby;
+    }
+
+    public static String getRandomAddress() {
+        return faker.address().fullAddress();
     }
 
     public static String getRandomState() {
