@@ -2,63 +2,87 @@ package com.demoqa.utils;
 
 import com.github.javafaker.Faker;
 
-import java.security.SecureRandom;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class RandomUtils {
+    static Faker faker = new Faker();
 
     public static void main(String[] args) {
-        System.out.println(getRandomString(10));
-        System.out.println(getRandomEmail());
-        System.out.println(getRandomInt(111, 9999999));
-        System.out.println(getRandomPhone());
-        System.out.println(getRandomGender());
-        System.out.println(getRandomUuid());
-        System.out.println(getRandomName());
-    }
-
-    public static String getRandomString(int len) {
-//        String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        String AB = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        SecureRandom rnd = new SecureRandom();
-
-        StringBuilder sb = new StringBuilder(len);
-        for(int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
-    }
-
-    public static String getRandomEmail() {
-        return getRandomString(10) + "@qa.guru";
+        System.out.println("GRBD = " + GET_RANDOM_BIRTHDAY);
+        System.out.println("rDay = " + getRandomDay());
+        System.out.println("rMonth = " + getRandomMonth());
+        System.out.println("rYear = " + getRandomYear());
     }
 
     public static int getRandomInt(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
+        return faker.random().nextInt(min, max + 1);
     }
 
-    // +3 (263) 253 - 66 - 12
     public static String getRandomPhone() {
-        return String.format("+%s (%s) %s - %s - %s", getRandomInt(1,  9), getRandomInt(111,  999),getRandomInt(111,  999),getRandomInt(11,  99),getRandomInt(11,  99));
+        return String.format("%s%s%s%s", getRandomInt(111,  999),getRandomInt(111,  999),getRandomInt(11,  99),getRandomInt(11,  99));
     }
 
     public static String getRandomGender() {
         String[] genders = {"Male", "Female", "Other"};
-
-        return getRandomItemFromArray(genders);
+        return faker.options().option(genders);
     }
 
-    private static String getRandomItemFromArray(String[] values) {
-        int index = getRandomInt(0, values.length - 1);
+    private static Date GET_RANDOM_BIRTHDAY = faker.date().birthday(16, 65);
 
-        return values[index];
+    public static String getRandomDay () {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
+        int dayNumber = Integer.parseInt(dateFormat.format(GET_RANDOM_BIRTHDAY));
+        return String.valueOf(dayNumber);
     }
 
-    private static String getRandomUuid() {
-        return UUID.randomUUID().toString();
+
+    public static String getRandomMonth() {
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        int monthNumber = GET_RANDOM_BIRTHDAY.getMonth();
+        String monthName = months[monthNumber];
+        return faker.options().option(monthName);
     }
 
-    private static String getRandomName() {
-        return new Faker().name().firstName();
+    public static String getRandomYear () {
+        return String.valueOf(GET_RANDOM_BIRTHDAY.getYear() + 1900);
+    }
+
+    public static String getRandomSubject() {
+        String[] subjects = {"Chemistry", "Physics", "Maths", "Commerce", "English"};
+        return faker.options().option(subjects);
+    }
+
+    public static String getRandomHobby() {
+        String[] hobbies = {"Sports", "Reading", "Music"};
+        return faker.options().option(hobbies);
+    }
+
+    public static String getRandomState() {
+        String[] states = {"NCR", "Uttar Pradesh", "Haryana", "Rajasthan"};
+        return faker.options().option(states);
+    }
+
+    public static String getRandomCity(String state) {
+        switch (state) {
+            case "NCR" -> {
+                String[] city = {"Delhi", "Gurgaon", "Noida"};
+                return faker.options().option(city);
+            }
+            case "Uttar Pradesh" -> {
+                String[] city = {"Agra", "Lucknow", "Merrut"};
+                return faker.options().option(city);
+            }
+            case "Haryana" -> {
+                String[] city = {"Karnal", "Panipat"};
+                return faker.options().option(city);
+            }
+            case "Rajasthan" -> {
+                String[] city = {"Jaipur", "Jaiselmer"};
+                return faker.options().option(city);
+            }
+        }
+        return null;
     }
 }

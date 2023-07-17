@@ -5,9 +5,6 @@ import com.demoqa.pages.AutomationPracticePage;
 import org.junit.jupiter.api.BeforeAll;
 
 
-
-
-
 public class TestBase {
     AutomationPracticePage automationPracticePage = new AutomationPracticePage();
 
