@@ -1,26 +1,29 @@
 package com.demoqa.tests;
 
+import com.demoqa.utils.RandomUtils;
 import org.junit.jupiter.api.Test;
 
 import static com.demoqa.utils.RandomUtils.*;
 
 public class AutomationPracticeFormWithPageObjectsWithFakerTests extends TestBase {
 
-    String firstName = getRandomFirstName(),
-            lastName = getRandomLastName(),
-            userEmail = getRandomUserEmail(),
-            gender = getRandomGender(),
-            userNumber = getRandomPhone(),
-            birthDay = getRandomDay(),
-            birthMonth = getRandomMonth(),
-            birthYear = getRandomYear(),
-            subject_1 = getRandomSubject(),
-            subject_2 = getRandomSubject(),
-            hobby_1 = getRandomHobby(),
-            hobby_2 = getRandomHobby(),
-            currentAddress = getRandomAddress(),
-            state = getRandomState(),
-            city = getRandomCity(state);
+    RandomUtils random = new RandomUtils();
+
+    String firstName = random.getRandomFirstName(),
+            lastName = random.getRandomLastName(),
+            userEmail = random.getRandomUserEmail(),
+            gender = random.getRandomGender(),
+            userNumber = random.getRandomPhone(),
+            birthDay = random.getRandomDay(),
+            birthMonth = random.getRandomMonth(),
+            birthYear = random.getRandomYear(),
+            subject_1 = random.getRandomSubject(),
+            subject_2 = random.getRandomSubject(),
+            hobby_1 = random.getRandomHobby(),
+            hobby_2 = random.getRandomHobby(),
+            currentAddress = random.getRandomAddress(),
+            state = random.getRandomState(),
+            city = random.getRandomCity(state);
 
     @Test
     void fillFormTest() {
