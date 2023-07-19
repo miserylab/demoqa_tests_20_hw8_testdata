@@ -1,6 +1,5 @@
 package com.demoqa.tests;
 
-import com.demoqa.pages.AutomationPracticePage;
 import org.junit.jupiter.api.Test;
 
 public class AutomationPracticeFormWithPageObjectsTests extends TestBase {
@@ -19,7 +18,7 @@ public class AutomationPracticeFormWithPageObjectsTests extends TestBase {
                 .setSubject("Physics")
                 .setHobbies("Sports")
                 .setHobbies("Reading")
-                .setUploadPicture("img/Toolsqa.jpg")
+                .setUploadPicture("Toolsqa.jpg")
                 .setAddress("Some address 1")
                 .setState("Uttar Pradesh")
                 .setCity("Merrut")
